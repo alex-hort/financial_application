@@ -16,7 +16,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="cellId" rowHeight="88" id="0nY-tG-7oR">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="cellId" rowHeight="88" id="0nY-tG-7oR" customClass="SearchTableViewCell" customModule="FinacialApp" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="50" width="393" height="88"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="0nY-tG-7oR" id="v19-V3-83t">
@@ -35,7 +35,7 @@
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="USD" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tI6-YE-ZJd">
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="EQUITY USD" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tI6-YE-ZJd">
                                                             <rect key="frame" x="0.0" y="54" width="185" height="18"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="18" id="WqI-Y3-xYH"/>
@@ -72,6 +72,11 @@
                                         <constraint firstAttribute="trailing" secondItem="JKR-jG-r2r" secondAttribute="trailing" constant="16" id="vb3-xd-PcF"/>
                                     </constraints>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="assetNameLabel" destination="IBN-OX-Qs2" id="ZIT-PH-YPZ"/>
+                                    <outlet property="assetSymbolLabel" destination="y0b-m8-ufR" id="sSZ-Ae-A9k"/>
+                                    <outlet property="assetTyeeLabel" destination="tI6-YE-ZJd" id="VSI-kN-Yzq"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
