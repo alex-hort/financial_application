@@ -98,7 +98,7 @@ class SearchTableViewController: UITableViewController {
                 
                 // Debug: imprimir primeros resultados
                 for (index, item) in searchResponse.items.prefix(3).enumerated() {
-                    print("📊 [\(index + 1)] \(item.symbol) - \(item.name) (\(item.type)) [\(item.currency)]")
+                    print("📊 [\(index + 1)] \(item.symbol) - \(item.name) (\(item.type)) [\(String(describing: item.currency))]")
                 }
                 
                 DispatchQueue.main.async {
@@ -139,7 +139,7 @@ class SearchTableViewController: UITableViewController {
             if let searchResults = self.searchResults, indexPath.row < searchResults.items.count {
                 let item = searchResults.items[indexPath.row]
                 basicCell.textLabel?.text = "\(item.symbol) - \(item.name)"
-                basicCell.detailTextLabel?.text = "\(item.type) • \(item.currency)"
+                basicCell.detailTextLabel?.text = "\(item.type) • \(String(describing: item.currency))"
             }
             return basicCell
         }

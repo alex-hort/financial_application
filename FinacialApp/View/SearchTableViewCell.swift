@@ -31,7 +31,7 @@ class SearchTableViewCell: UITableViewCell {
         
         assetNameLabel?.text = searchResult.name
         assetSymbolLabel?.text = searchResult.symbol
-        assetTypeLabel?.text = "\(searchResult.type) • \(searchResult.currency)"
+        assetTypeLabel?.text = "\(searchResult.type) • \(String(describing: searchResult.currency))"
         
         // Debug: verificar que los outlets estén conectados
         if assetNameLabel == nil {
