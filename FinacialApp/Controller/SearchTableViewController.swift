@@ -7,8 +7,14 @@
 
 import UIKit
 import Combine
+import MBProgressHUD
 
-class SearchTableViewController: UITableViewController {
+class SearchTableViewController: UITableViewController, UIAnimatable {
+    
+    private enum Mode{
+        case onboarding
+        case search
+    }
     
     private lazy var searchController: UISearchController = {
         let sc = UISearchController(searchResultsController: nil)
@@ -23,11 +29,11 @@ class SearchTableViewController: UITableViewController {
     private let apiService = APIService()
     private var subscribers = Set<AnyCancellable>()
     private var searchResults: SearchResults?
+    @Published private var mode: Mode = .onboarding
     @Published private var searchQuery = String()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("🚀 ViewDidLoad iniciado")
         setupNavigationBar()
         setupTableView()
         observeForm()
@@ -36,14 +42,15 @@ class SearchTableViewController: UITableViewController {
     private func setupNavigationBar() {
         navigationItem.searchController = searchController
         navigationItem.hidesSearchBarWhenScrolling = false
-        print("🔧 Navigation bar configurado")
+        navigationItem.title = "Search"
+        
     }
     
     private func setupTableView() {
-        // Asegúrate de que el identifier sea correcto
-        // Si no funciona con "cellId", intenta con el identifier exacto del storyboard
-        tableView.keyboardDismissMode = .onDrag
-        print("🔧 TableView configurado")
+   
+        //remove lines
+        tableView.tableFooterView = UIView()
+     
     }
     
     private func observeForm() {
@@ -53,8 +60,12 @@ class SearchTableViewController: UITableViewController {
             .debounce(for: .milliseconds(750), scheduler: RunLoop.main)
             .removeDuplicates()
             .sink { [weak self] searchQuery in
-                guard let self = self else { return }
                 
+                //SHOW ANIMATION PROGREES WAIT
+               
+                guard let self = self else { return }
+                //load
+                showLoadingAnimation()
                 print("🔍 Query recibida: '\(searchQuery)'")
                 
                 guard !searchQuery.trimmingCharacters(in: .whitespaces).isEmpty else {
@@ -70,6 +81,20 @@ class SearchTableViewController: UITableViewController {
                 self.performSearch(query: searchQuery)
             }
             .store(in: &subscribers)
+        
+        
+        $mode.sink { [unowned self] (mode) in
+            //hide
+            hideLoadingAnimation()
+            switch mode {
+            case .onboarding:
+                self.tableView.backgroundView = SearchPlaceholderView()
+                
+            case .search:
+                //remove backhround view
+                self.tableView.backgroundView = nil
+            }
+        }.store(in: &subscribers)
     }
     
     private func performSearch(query: String) {
@@ -205,5 +230,8 @@ extension SearchTableViewController: UISearchResultsUpdating, UISearchController
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         searchBar.resignFirstResponder()
+    }
+    func willPresentSearchController(_ searchController: UISearchController) {
+        mode = .search
     }
 }
